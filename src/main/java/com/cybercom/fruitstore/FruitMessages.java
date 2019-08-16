@@ -1,6 +1,6 @@
 package com.cybercom.fruitstore;
 
-import com.cybercom.fruitstore.repository.Database;
+import com.cybercom.fruitstore.repository.FruitRepository;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class FruitMessages implements MqttCallback {
 
     @Autowired
-    Database db;
+    FruitRepository db;
 
     MqttClient mqtt;
 

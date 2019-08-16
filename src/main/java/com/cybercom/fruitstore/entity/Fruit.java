@@ -1,7 +1,5 @@
 package com.cybercom.fruitstore.entity;
 
-import java.util.Random;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

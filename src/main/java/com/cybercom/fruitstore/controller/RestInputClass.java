@@ -5,7 +5,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServlet;
 
 import com.cybercom.fruitstore.entity.Fruit;
-import com.cybercom.fruitstore.repository.Database;
+import com.cybercom.fruitstore.repository.FruitRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(path = "/fruitstore")
 public class RestInputClass extends HttpServlet {
   @Autowired
-  Database db;
+  FruitRepository db;
 
   public static String JSON = "application/json";
 
