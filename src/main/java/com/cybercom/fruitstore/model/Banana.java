@@ -1,5 +1,6 @@
-package com.cybercom.fruitstore;
+package com.cybercom.fruitstore.model;
 
+import com.cybercom.fruitstore.entity.FruitObject;
 
 //banana
 public class Banana {

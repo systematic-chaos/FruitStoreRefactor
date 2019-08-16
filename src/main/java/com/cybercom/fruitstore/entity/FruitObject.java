@@ -1,4 +1,4 @@
-package com.cybercom.fruitstore;
+package com.cybercom.fruitstore.entity;
 
 import java.util.Random;
 
@@ -36,8 +36,8 @@ private int id;
         setP(p);
         //set name
         setN(n);
-        
-        
+
+
 
     }
 

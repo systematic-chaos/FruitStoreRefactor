@@ -1,4 +1,4 @@
-package com.cybercom.fruitstore;
+package com.cybercom.fruitstore.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
