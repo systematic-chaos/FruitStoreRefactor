@@ -9,7 +9,7 @@ import com.cybercom.fruitstore.repository.FruitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lombok.Delegate;
+import lombok.experimental.Delegate;
 
 @Service
 class FruitServiceImpl implements FruitService {

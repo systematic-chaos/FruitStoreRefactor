@@ -1,0 +1,10 @@
+{"properties": [{
+  "name": "fruitstore.messages.newFruitTopic",
+  "type": "java.lang.String",
+  "description": "A topic to add new fruits"
+},
+{
+  "name": "fruitstore.messages.connectionUrl",
+  "type": "java.lang.String",
+  "description": "A socket for mqtt broker"
+}]}
