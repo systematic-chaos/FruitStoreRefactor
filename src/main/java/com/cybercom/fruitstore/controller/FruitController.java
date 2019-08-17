@@ -8,9 +8,7 @@ import com.cybercom.fruitstore.entity.Fruit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +25,6 @@ public class FruitController implements FruitStoreAPI {
     private FruitService fruitService;
 
     @Override
-    @GetMapping(path = "/getFruit/{id}")
     public ResponseEntity<?> getFruit(@PathVariable("id") int id) {
         log.debug("getFruit. Id: {}", id);
         Optional<Fruit> fruit =  fruitService.findById(id);
@@ -38,7 +35,6 @@ public class FruitController implements FruitStoreAPI {
     }
 
     @Override
-    @GetMapping(path = "/getFruitList")
     public ResponseEntity<?> getFruitList() {
         log.debug("getFruitList");
 
@@ -46,7 +42,6 @@ public class FruitController implements FruitStoreAPI {
     }
 
     @Override
-    @PostMapping(path = "/getFruit/update/{id}")
     public ResponseEntity<Fruit> updateFruit(@RequestBody Fruit fruit,
                                              @PathVariable("id") int id) {
         log.debug("updateFruit. fruit: {} id: {}", fruit.toString(), id);
@@ -58,7 +53,6 @@ public class FruitController implements FruitStoreAPI {
     }
 
     @Override
-    @PostMapping(path = "getFruit/store")
 	public ResponseEntity<Fruit> storeFruit(Fruit fruit) {
         log.debug("saveFruit. Fruit: {}", fruit);
 

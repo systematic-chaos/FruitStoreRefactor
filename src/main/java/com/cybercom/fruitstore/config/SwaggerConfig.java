@@ -20,6 +20,4 @@ public class SwaggerConfig {
         .paths(PathSelectors.regex("/fruitstore.*"))
         .build();
     }
-
-
 }
