@@ -14,7 +14,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -43,12 +42,12 @@ public class FruitStoreApiTest {
         List<Fruit> fruitList = new ArrayList<Fruit>();
         fruitList.add(mockFruit);
 
-        String expectedFruitList = "[Fruit(id=0, type=Bannana, name=Cavendish, price=3.0)]";
+        //String expectedFruitList = "[Fruit(id=0, type=Bannana, name=Cavendish, price=3.0)]";
 
         when(fruitService.findAll()).thenReturn(fruitList);
 
         MvcResult mvcResultGetList = mockMvc
-                .perform(MockMvcRequestBuilders.get("/fruitstore/getFruitList").accept(MediaType.APPLICATION_JSON))
+                .perform(MockMvcRequestBuilders.get("/fruitstore/fruits").accept(MediaType.APPLICATION_JSON))
                 .andReturn();
 
         ObjectMapper mapper = new ObjectMapper();
