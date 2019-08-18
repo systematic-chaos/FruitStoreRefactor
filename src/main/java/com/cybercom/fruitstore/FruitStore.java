@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 @EnableConfigurationProperties(FruitMessagesConfig.class)
 @SpringBootApplication(scanBasePackages = {"com.cybercom.fruitstore.integration",
+"com.cybercom.fruitstore.util",
 "com.cybercom.fruitstore.domain",
 "com.cybercom.fruitstore.controller"})
 public class FruitStore {

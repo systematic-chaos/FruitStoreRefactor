@@ -21,15 +21,15 @@ public class Fruit {
 	private int id;
 
 	@NotBlank
-	private String type;
+	private String name;
 
 	@NotBlank
-	private String name;
+	private String type;
 
 	@Min(0)
 	private float price;
 
-	public Fruit(String type, String name, int price) {
+	public Fruit(String name, String type, int price) {
 		this.type = type;
 		this.name = name;
 		this.price = price;
