@@ -4,7 +4,9 @@ import com.cybercom.fruitstore.entity.Fruit;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import io.swagger.annotations.Api;
@@ -21,9 +23,9 @@ public interface FruitStoreAPI {
     @GetMapping(path = "/fruits")
     ResponseEntity<?> getFruitList();
 
-    @PostMapping(path = "/fruits/update/{id}")
-    ResponseEntity<Fruit> updateFruit(Fruit fruit, int id);
+    @PostMapping(path = "update/{id}")
+    ResponseEntity<Fruit> updateFruit(@RequestBody Fruit fruit, @PathVariable("id") int id);
 
-    @PostMapping(path = "fruits/store")
-    ResponseEntity<Fruit> storeFruit(Fruit fruit);
+    @PostMapping(path = "store")
+    ResponseEntity<Fruit> storeFruit(@RequestBody Fruit fruit);
 }

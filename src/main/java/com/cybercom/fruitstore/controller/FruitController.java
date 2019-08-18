@@ -51,7 +51,7 @@ public class FruitController implements FruitStoreAPI {
     }
 
     @Override
-	public ResponseEntity<Fruit> storeFruit(Fruit fruit) {
+	public ResponseEntity<Fruit> storeFruit(@RequestBody Fruit fruit) {
         log.debug("saveFruit. Fruit: {}", fruit);
 
         Fruit savedFruit = fruitService.save(fruit);

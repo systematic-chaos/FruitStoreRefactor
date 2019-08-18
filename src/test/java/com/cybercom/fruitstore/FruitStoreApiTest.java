@@ -14,10 +14,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -37,26 +40,40 @@ public class FruitStoreApiTest {
     private MockMvc mockMvc;
 
     @Test
-    public void insertOneFruitAndGotOne() throws Exception {
+    public void getListOfFruit() throws Exception {
         Fruit mockFruit = new Fruit("Bannana", "Cavendish", 3);
         List<Fruit> fruitList = new ArrayList<Fruit>();
         fruitList.add(mockFruit);
 
-        //String expectedFruitList = "[Fruit(id=0, type=Bannana, name=Cavendish, price=3.0)]";
-
         when(fruitService.findAll()).thenReturn(fruitList);
 
         MvcResult mvcResultGetList = mockMvc
-                .perform(MockMvcRequestBuilders.get("/fruitstore/fruits").accept(MediaType.APPLICATION_JSON))
+                .perform(MockMvcRequestBuilders.get("/fruitstore/fruits").accept(MediaType.APPLICATION_JSON_UTF8))
                 .andReturn();
 
         ObjectMapper mapper = new ObjectMapper();
         Class<?> clz = Fruit.class;
         JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, clz);
-        List<Fruit> resultList = new ObjectMapper().readValue(mvcResultGetList.getResponse().getContentAsString(),
-                type);
+        List<Fruit> resultList = mapper.readValue(mvcResultGetList.getResponse().getContentAsString(), type);
         log.debug("response save: {}", resultList.toString());
 
         assertEquals("The size of the list should be one", 1, resultList.size());
+    }
+
+    @Test
+    public void saveFruit() throws Exception {
+        Fruit expectedFruit = new Fruit("Watermelon", "Black Diamond", 5);
+        String expectedFruitJson = new ObjectMapper().writeValueAsString(expectedFruit);
+
+        log.debug("expected fruit: {}", expectedFruitJson);
+
+        when(fruitService.save(Mockito.any(Fruit.class))).thenReturn(expectedFruit);
+
+        MvcResult mvcResultSaveFruit = mockMvc.perform(MockMvcRequestBuilders.post("/fruitstore/store")
+                .accept(MediaType.APPLICATION_JSON).content(expectedFruitJson)
+                .contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andReturn();
+
+        assertEquals(HttpStatus.CREATED.value(), mvcResultSaveFruit.getResponse().getStatus());
     }
 }
