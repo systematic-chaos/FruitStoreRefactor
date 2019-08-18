@@ -1,4 +1,4 @@
-package com.cybercom.fruitstore;
+package com.cybercom.fruitstore.integration;
 
 import com.cybercom.fruitstore.config.FruitMessagesConfig;
 import com.cybercom.fruitstore.domain.FruitService;
@@ -24,31 +24,49 @@ public class FruitMessages implements MqttCallback {
     private FruitService fruitService;
     private MqttClient mqttClient;
 
+    private String topic = "";
+
     @Autowired
     public FruitMessages(FruitMessagesConfig fruitMessagesConfig) throws MqttException {
-        mqttClient = new MqttClient(fruitMessagesConfig.getConnectionUrl(),
-                                               MqttClient.generateClientId());
+        String clientID = MqttClient.generateClientId();
 
+        log.debug("{} creating FruitMessages Client to {}:{}", LOG_TAG,
+            fruitMessagesConfig.getConnectionUrl(), clientID);
+
+        mqttClient = new MqttClient(fruitMessagesConfig.getConnectionUrl(),
+                                               clientID);
+
+        topic = fruitMessagesConfig.getNewFruitTopic();
+        configureMqttClient();
+    }
+
+    private void configureMqttClient() {
         mqttClient.setCallback(this);
-        mqttClient.connect();
-        mqttClient.subscribe(fruitMessagesConfig.getNewFruitTopic());
+        try {
+            mqttClient.connect();
+            mqttClient.subscribe(topic);
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void connectionLost(Throwable cause) {
-        log.error("{} Connection lost", LOG_TAG);
+        log.error("{} Connection lost. Cause: {} {}", LOG_TAG,
+        cause.getMessage(), cause.getStackTrace());
 
-        try {
+        /*try {
             mqttClient.close();
         } catch (MqttException exception) {
             log.error("{} Error while closing connection: {}",
                 LOG_TAG, exception.getStackTrace());
         }
+
+        configureMqttClient();*/
     }
 
     @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {
-        // would be nice to save the fruits..
         log.debug("{} New Message: {} ",LOG_TAG, message.getPayload().toString());
         String fruitStr = message.getPayload().toString();
         log.info("Message arrived {}", fruitStr);
