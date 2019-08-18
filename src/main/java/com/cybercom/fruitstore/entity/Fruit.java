@@ -34,4 +34,10 @@ public class Fruit {
 		this.name = name;
 		this.price = price;
 	}
+
+	public void update(Fruit fruit) {
+		this.name = fruit.getName();
+		this.type = fruit.type;
+		this.price = fruit.price;
+	}
 }

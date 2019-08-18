@@ -32,9 +32,7 @@ class FruitServiceImpl implements FruitService {
     @Override
     public Fruit update(Fruit fruit, int id) {
         return fruitRepository.findById(id).map(updatedFruit -> {
-            updatedFruit.setName(fruit.getName());
-            updatedFruit.setPrice(fruit.getPrice());
-            updatedFruit.setType(fruit.getType());
+            updatedFruit.update(fruit);
 
             return fruitRepository.save(updatedFruit);
         }).orElseGet(() -> {
