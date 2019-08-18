@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.cybercom.fruitstore.controller.FruitController;
 import com.cybercom.fruitstore.domain.FruitService;
@@ -38,6 +39,23 @@ public class FruitStoreApiTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Test
+    public void getFruitById() throws Exception {
+        Fruit expectedFruit = new Fruit("Bannana", "Cavendish", 3);
+
+        when(fruitService.findById(Mockito.anyInt())).thenReturn(Optional.of(expectedFruit));
+
+        MvcResult mvcResultGetList = mockMvc
+                .perform(MockMvcRequestBuilders.get("/fruitstore/fruits/1").accept(MediaType.APPLICATION_JSON_UTF8))
+                .andReturn();
+
+        ObjectMapper mapper = new ObjectMapper();
+        Fruit resultList = mapper.readValue(mvcResultGetList.getResponse().getContentAsString(), Fruit.class);
+        log.debug("response save: {}", resultList.toString());
+
+        assertEquals("The name of the fruit should be the expected", expectedFruit.getName(), resultList.getName());
+    }
 
     @Test
     public void getListOfFruit() throws Exception {

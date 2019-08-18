@@ -19,6 +19,8 @@ The project uses a simple layered architecture forme by three layers:
     performs the actions necessary depending on the domain logic and invoke the data layer to persist and obtain the data needed.
 - Data: this layer persists and give operations to abstract an H2 database through a repository.
 
+To see the evolution of the project over the time, please take a look to the commits.
+
 Improvements:
 
 One of the possible improvements that could be done in this project are divide the project in three maven artifacts, one for each layer.
@@ -27,3 +29,6 @@ This have several advantages:
 - Improves the compilation time of the project since it is necessary to compile only the artifact that have been modified and not
 the whole project.
 - The work can be divide in a better way so different teams could work on each artifact independently.
+
+Additionally, It would be nice to use a git flow, but since this project is just an example, that would lead to several branches with
+just one commit.
